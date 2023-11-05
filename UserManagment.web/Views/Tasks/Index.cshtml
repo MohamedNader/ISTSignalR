@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="signalr-demo">
+    <hr />
+    <ul id="messages"></ul>
+</div>
+<script type="text/javascript">
+    var username = '@TempData["userName"]';
+    document.addEventListener('DOMContentLoaded', function () {
+        connection.start()
+            .then(function () {
+                console.log('connection started');
+                connection.invoke("SetUserIdConnection", username);
+            })
+            .catch(error => {
+                console.error(error.message);
+            });
+        //taskId, taskname, userId
+
+        connection.on('BindTaskToUser', function (taskId, taskname) {
+            var ul = document.getElementById("messages");
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(taskId + ": " + taskname));
+            ul.appendChild(li);
+        });
+    });
+ 
+</script>
+<script>
+    const messageForm = document.getElementById('message-form');
+    // const messageBox = document.getElementById('message-box');
+    // const messages = document.getElementById('messages');
+
+    // connection.on('sendTaskToUser', (sender, messageText) => {
+    //     console.log(`${sender}:${messageText}`);
+
+    //     const newMessage = document.createElement('li');
+    //     newMessage.appendChild(document.createTextNode(`${sender}:${messageText}`));
+    //     messages.appendChild(newMessage);
+    // });
+
+    // connection.start()
+    //     .then(() => console.log('connected!'))
+    //     .catch(console.error);
+</script>
+
+

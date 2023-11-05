@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="signalr-demo">
+    <p><input id="tasknumber" type="number" name="tasknumber" value="" placeholder="Task Number" required></p>
+    <p><input id="taskname" type="text" name="taskname" value="" placeholder="Task Name" required></p>
+    <p><input id="userName" type="text" name="userName" value="" placeholder="User Name" required></p>
+        <p class="submit"><input type="button" name="commit" value="Add Task" onClick="sendTask()"></p>
+        <hr />
+</div>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var username = '@TempData["userName"]';
+        connection.start()
+            .then(function () {
+                console.log('connection started');
+                connection.invoke("SetUserIdConnection", username);
+            })
+            .catch(error => {
+                console.error(error.message);
+            });
+    });
+
+    function sendTask(){
+        const tasknumber = document.getElementById('tasknumber').value;
+        const taskname = document.getElementById('taskname').value;
+        const userName = document.getElementById('userName').value;
+
+        connection.invoke("SendTaskToUser", parseInt(tasknumber), taskname, userName);
+    }
+</script>
+<script>
+    const messageForm = document.getElementById('message-form');
+    // const messageBox = document.getElementById('message-box');
+    // const messages = document.getElementById('messages');
+
+    // connection.on('sendTaskToUser', (sender, messageText) => {
+    //     console.log(`${sender}:${messageText}`);
+
+    //     const newMessage = document.createElement('li');
+    //     newMessage.appendChild(document.createTextNode(`${sender}:${messageText}`));
+    //     messages.appendChild(newMessage);
+    // });
+
+    // connection.start()
+    //     .then(() => console.log('connected!'))
+    //     .catch(console.error);
+</script>
+
