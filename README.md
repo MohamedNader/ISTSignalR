@@ -10,4 +10,9 @@ to add database from package manager console set the Default project to IST.SQLC
 and start up build project to UserManagment API at UsersManagment.Services at UserManagment.Presentation
 then update-database
 
-from web page
+to test please open 2 different browsers
+add 2 users and no validation needed 
+login with 2 users frow the 2 browsers 
+from one of them navigate to add task 
+set task data and the needed username to receive 
+check the second user recevied the task 
